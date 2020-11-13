@@ -1,0 +1,147 @@
+swagger: "2.0"
+info:
+  title: Kadaya Backend API Documentation
+  version: 1.0.0
+host: localhost:3000
+schemes:
+  - http
+tags:
+  - name: Login
+    description: Login
+  - name: Post
+    description: Post
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: x-access-token
+paths:
+  /login/:
+    post:
+      summary: Login
+      tags:
+        - Login
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: json body
+          schema:
+            type: object
+            required:
+              - username
+              - password
+            properties:
+              username:
+                type: string
+                example: inma
+              password:
+                type: string
+                example: 123456789
+      responses:
+        201:
+          description: Updated
+        400:
+          description: Not Found
+        502:
+          description: Server Error
+
+
+
+  /post/:
+    get:
+      security:
+        - ApiKeyAuth: []
+      summary: Get the latest post by the user
+      tags:
+        - Post
+      consumes:
+        - application/json
+      responses:
+        200:
+          description: OK
+        404:
+          description: Not Found
+        502:
+          description: Server Error
+
+
+    put:
+      security:
+        - ApiKeyAuth: []
+      summary: Update the existing post
+      tags:
+        - Post
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: post details
+          description: json body
+          schema:
+            type: object
+            required:
+              - ID
+              - post_author
+              - post_content
+            properties:
+              ID:
+                type: integer
+              post_author:
+                type: integer
+              post_date:
+                type: string
+              post_date_gmt:
+                type: string
+              post_content:
+                type: string
+              post_title:
+                type: string
+              post_excerpt:
+                type: string
+              post_status:
+                type: string
+              comment_status:
+                type: string
+              ping_status:
+                type: string
+              post_password:
+                type: string
+              post_name:
+                type: string
+              to_ping:
+                type: string
+              pinged:
+                type: string
+              post_modified:
+                type: string
+              post_modified_gmt:
+                type: string
+              post_content_filtered:
+                type: string
+              post_parent:
+                type: string
+              guid:
+                type: string
+              menu_order:
+                type: string
+              post_type:
+                type: string
+              post_mime_type:
+                type: string
+              comment_count:
+                type: string
+      responses:
+        200:
+          description: Updated
+        401:
+          description: Not authorized
+        400:
+          description: Not Found
+        502:
+          description: Server Error
